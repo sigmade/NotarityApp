@@ -28,7 +28,7 @@ namespace WebApi.Controllers
         {
             try
             {
-                await _documentService.AddNewDoc(request);
+                await _documentService.AddProxy(request);
             }
             catch (Exception ex)
             {

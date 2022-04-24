@@ -4,6 +4,6 @@ namespace BusinessLayer.Documents.Services
 {
     public interface IDocumentService
     {
-        Task AddNewDoc(AddNewDocRequest request);
+        Task AddProxy(AddNewDocRequest request);
     }
 }

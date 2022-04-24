@@ -12,7 +12,7 @@ namespace BusinessLayer.Documents.Services
             _dataProvider = dataProvider;
         }
 
-        public async Task AddNewDoc(AddNewDocRequest request)
+        public async Task AddProxy(AddNewDocRequest request)
         {
             await _dataProvider.SaveNewDoc(new()
             {
