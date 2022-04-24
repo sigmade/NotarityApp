@@ -29,6 +29,8 @@ namespace BusinessLayer.Documents.Services
                 Type = request.Type,
                 СonfidantId = request.СonfidantId
             });
+
+            CreateDoc.CreateProxy(request);
         }
     }
 }
