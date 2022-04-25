@@ -2,8 +2,8 @@
 
 namespace BusinessLayer.Documents.Services
 {
-    public interface IDocumentService
+    public interface IFileService
     {
-        Task<string> AddProxy(AddNewDocRequest request);
+        Task<string> CreateProxy(AddNewDocRequest request);
     }
 }

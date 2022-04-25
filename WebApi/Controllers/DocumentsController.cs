@@ -11,13 +11,16 @@ namespace WebApi.Controllers
     {
         private readonly IDocumentService _documentService;
         private readonly IErrorHandler _error;
+        private readonly IWebHostEnvironment _appEnvironment;
 
         public DocumentsController(
             IDocumentService documentService,
-            IErrorHandler error)
+            IErrorHandler error,
+            IWebHostEnvironment appEnvironment)
         {
             _documentService = documentService;
             _error = error;
+            _appEnvironment = appEnvironment;
         }
 
         [HttpPost]
@@ -26,15 +29,17 @@ namespace WebApi.Controllers
         [ProducesResponseType(204)]
         public async Task<IActionResult> AddNewDocument(AddNewDocRequest request)
         {
+            string docId;
             try
             {
-                await _documentService.AddProxy(request);
+                docId = Path.Combine(_appEnvironment.ContentRootPath, await _documentService.AddProxy(request));
             }
             catch (Exception ex)
             {
                 return StatusCode(500, _error.DefaultHandle(nameof(AddNewDocument), ex));
             }
-            return NoContent();
+
+            return Ok(docId);
         }
     }
 }

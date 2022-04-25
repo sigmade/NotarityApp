@@ -9,6 +9,7 @@ namespace WebApi.Extension
         {
             services.AddScoped<IDocumentService, DocumentService>();
             services.AddScoped<IErrorHandler, ErrorHandler>();
+            services.AddScoped<IFileService, FileService>();
 
             return services;
         }

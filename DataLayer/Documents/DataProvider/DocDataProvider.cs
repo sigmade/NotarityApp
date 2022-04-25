@@ -12,6 +12,11 @@ namespace DataLayer.Documents.DataProvider
             _dbContext = dbContext;
         }
 
+        public Task SaveFilePath(DocumentEntity document)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task SaveNewDoc(DocumentEntity document)
         {
             _dbContext.Add(document);
