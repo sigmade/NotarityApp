@@ -6,13 +6,17 @@ namespace BusinessLayer.Documents.Services
     public class DocumentService : IDocumentService
     {
         private readonly IDocDataProvider _dataProvider;
+        private readonly IFileService _fileService;
 
-        public DocumentService(IDocDataProvider dataProvider)
+        public DocumentService(
+            IDocDataProvider dataProvider,
+            IFileService fileService)
         {
             _dataProvider = dataProvider;
+            _fileService = fileService;
         }
 
-        public async Task AddProxy(AddNewDocRequest request)
+        public async Task<string> AddProxy(AddNewDocRequest request)
         {
             await _dataProvider.SaveNewDoc(new()
             {
@@ -21,16 +25,19 @@ namespace BusinessLayer.Documents.Services
                 ActionDescription = request.ActionDescription,
                 ActionTitle = request.ActionTitle,
                 DocDate = request.DocDate,
-                DocTerritory = request.DocTerritory,
-                EmployeeId = request.EmployeeId,
+                Territory = request.Territory,
+                UserId = request.UserId,
                 Number = request.Number,
-                PrincipalId = request.PrincipalId,
+                MajorClientId = request.MajorClientId,
                 SubType = request.SubType,
                 Type = request.Type,
-                СonfidantId = request.СonfidantId
+                MinorClientId = request.MinorClientId,
+                NotaryId = request.NotaryId,
             });
 
-            CreateDoc.CreateProxy(request);
+            var docId = await _fileService.CreateProxy(request);
+
+            return docId;
         }
     }
 }

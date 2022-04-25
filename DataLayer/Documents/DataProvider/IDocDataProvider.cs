@@ -5,5 +5,7 @@ namespace DataLayer.Documents.DataProvider
     public interface IDocDataProvider
     {
         Task SaveNewDoc(DocumentEntity document);
+
+        Task SaveFilePath(DocumentEntity document);
     }
 }
