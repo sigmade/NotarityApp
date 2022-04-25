@@ -1,5 +1,6 @@
 ﻿using BusinessLayer.Documents.Models;
 using DataLayer.Clients;
+using DataLayer.Files;
 using DataLayer.Users;
 using DocumentFormat.OpenXml.Packaging;
 
@@ -9,13 +10,16 @@ namespace BusinessLayer.Documents.Services
     {
         private readonly IClientDataProvider _clientDataProvider;
         private readonly IUserDataProvider _userDataProvider;
+        private readonly IFilesDataProvider _filesDataProvider;
 
         public FileService(
             IClientDataProvider clientDataProvider,
-            IUserDataProvider userDataProvider)
+            IUserDataProvider userDataProvider, 
+            IFilesDataProvider filesDataProvider)
         {
             _clientDataProvider = clientDataProvider;
             _userDataProvider = userDataProvider;
+            _filesDataProvider = filesDataProvider;
         }
 
         public async Task<string> CreateProxy(AddNewDocRequest request)
@@ -53,7 +57,7 @@ namespace BusinessLayer.Documents.Services
                     { "minorclientaddress", minorClient.HomeAddress },
                     { "majorclientiin", majorClient.IINBIN },
                     { "minorclientiin", minorClient.IINBIN },
-                    { "titile", request.ActionTitle },
+                    { "title", request.ActionTitle },
                     { "desctription", request.ActionDescription },
                     { "datebegin", request.DateBegin.ToString("dd.MM.yyyy")  },
                     { "dateend", request.DateEnd.ToString("dd.MM.yyyy")  },
@@ -71,6 +75,8 @@ namespace BusinessLayer.Documents.Services
                 {
                     sw.Write(docText);
                 }
+
+                await _filesDataProvider.AddNewFile(new() { Guid = docId.ToString(), Path = destFile, UserId = request.UserId });
             }
 
             return docId.ToString();

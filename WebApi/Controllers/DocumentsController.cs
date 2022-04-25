@@ -32,7 +32,8 @@ namespace WebApi.Controllers
             string docId;
             try
             {
-                docId = Path.Combine(_appEnvironment.ContentRootPath, await _documentService.AddProxy(request));
+                request.UserId = 1; // TODO: Определять юзера по токену
+                docId = await _documentService.AddProxy(request);
             }
             catch (Exception ex)
             {

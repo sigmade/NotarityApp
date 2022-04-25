@@ -1,6 +1,7 @@
 ﻿using DataLayer.Clients.Models;
 using DataLayer.Documents.Models;
 using DataLayer.EF.Configs;
+using DataLayer.Files.Models;
 using DataLayer.Users.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,6 +17,7 @@ namespace DataLayer.EF
         public DbSet<ClientEntity> Clients { get; private set; }
         public DbSet<NotaryEntity> Notaries { get; private set; }
         public DbSet<UserEntity> Users { get; private set; }
+        public DbSet<FileEntity> Files { get; private set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -25,6 +27,7 @@ namespace DataLayer.EF
             builder.ApplyConfiguration(new NotariesConfiguration());
             builder.ApplyConfiguration(new ClientsConfiguration());
             builder.ApplyConfiguration(new UsersConfiguration());
+            builder.ApplyConfiguration(new FilesConfiguration());
         }
     }
 }
