@@ -1,4 +1,5 @@
-﻿using BusinessLayer.Documents.Services;
+﻿using BusinessLayer.Clients.Services;
+using BusinessLayer.Documents.Services;
 using WebApi.monitoring.Errors;
 
 namespace WebApi.Extension
@@ -10,6 +11,7 @@ namespace WebApi.Extension
             services.AddScoped<IDocumentService, DocumentService>();
             services.AddScoped<IErrorHandler, ErrorHandler>();
             services.AddScoped<IFileService, FileService>();
+            services.AddScoped<IClientService, ClientService>();
 
             return services;
         }

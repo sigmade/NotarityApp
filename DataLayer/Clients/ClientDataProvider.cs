@@ -17,5 +17,12 @@ namespace DataLayer.Clients
         {
             return await _dbContext.Clients.FirstOrDefaultAsync(c => c.Id == id);
         }
+
+        public async Task<long> SaveClient(ClientEntity client)
+        {
+            _dbContext.Clients.Add(client);
+            await _dbContext.SaveChangesAsync();
+            return client.Id;
+        }
     }
 }
