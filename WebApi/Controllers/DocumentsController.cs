@@ -10,23 +10,26 @@ namespace WebApi.Controllers
     public class DocumentsController : ControllerBase
     {
         private readonly IDocumentService _documentService;
+        private readonly IFileService _fileService;
         private readonly IErrorHandler _error;
         private readonly IWebHostEnvironment _appEnvironment;
 
         public DocumentsController(
             IDocumentService documentService,
             IErrorHandler error,
-            IWebHostEnvironment appEnvironment)
+            IWebHostEnvironment appEnvironment,
+            IFileService fileService)
         {
             _documentService = documentService;
             _error = error;
             _appEnvironment = appEnvironment;
+            _fileService = fileService;
         }
 
         [HttpPost]
         [ProducesResponseType(500)]
         [ProducesResponseType(503)]
-        [ProducesResponseType(204)]
+        [ProducesResponseType(200)]
         public async Task<IActionResult> AddNewDocument(AddNewDocRequest request)
         {
             string docId;
@@ -41,6 +44,28 @@ namespace WebApi.Controllers
             }
 
             return Ok(docId);
+        }
+
+        [HttpGet("GetDocumentFile")]
+        [ProducesResponseType(500)]
+        [ProducesResponseType(503)]
+        [ProducesResponseType(200)]
+        public async Task<IActionResult> GetDocumentFile(string filePath)
+        {
+            byte[] file;
+            string file_type;
+            string file_name;
+            try
+            {
+                file = await _fileService.GetFileByPath(filePath);
+                file_type = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+                file_name = "doc.docx";
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, _error.DefaultHandle(nameof(AddNewDocument), ex));
+            }
+            return File(file, file_type, file_name);
         }
     }
 }

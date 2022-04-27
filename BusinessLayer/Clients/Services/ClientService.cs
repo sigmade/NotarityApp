@@ -14,7 +14,7 @@ namespace BusinessLayer.Clients.Services
 
         public async Task<long> AddClient(AddClientRequest request)
         {
-            var clientId = await _clientDataProvider.SaveClient(new () 
+            var clientId = await _clientDataProvider.SaveClient(new()
             {
                 BirthDate = request.BirthDate,
                 BirthPlace = request.BirthPlace,

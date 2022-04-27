@@ -14,7 +14,7 @@ namespace BusinessLayer.Documents.Services
 
         public FileService(
             IClientDataProvider clientDataProvider,
-            IUserDataProvider userDataProvider, 
+            IUserDataProvider userDataProvider,
             IFilesDataProvider filesDataProvider)
         {
             _clientDataProvider = clientDataProvider;
@@ -79,7 +79,12 @@ namespace BusinessLayer.Documents.Services
                 await _filesDataProvider.AddNewFile(new() { Guid = docId.ToString(), Path = destFile, UserId = request.UserId });
             }
 
-            return docId.ToString();
+            return destFile;
+        }
+
+        public async Task<byte[]> GetFileByPath(string path)
+        {
+            return await File.ReadAllBytesAsync(path);
         }
     }
 }
