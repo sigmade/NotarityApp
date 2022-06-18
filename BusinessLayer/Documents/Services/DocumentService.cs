@@ -31,7 +31,7 @@ namespace BusinessLayer.Documents.Services
                 MajorClientId = request.MajorClientId,
                 SubType = request.SubType,
                 Type = request.Type,
-                MinorClientId = request.MinorClientId,
+                MinorClientId = request.MinorsClientIds.FirstOrDefault(),
                 NotaryId = request.NotaryId,
             });
 

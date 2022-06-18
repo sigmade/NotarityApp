@@ -14,7 +14,7 @@ namespace BusinessLayer.Documents.Models
         public long UserId { get; set; }
         public long NotaryId { get; set; }
         public long MajorClientId { get; set; }
-        public long MinorClientId { get; set; }
+        public List<long> MinorsClientIds { get; set; }
         public DocType Type { get; set; }
         public DocSubType SubType { get; set; }
     }

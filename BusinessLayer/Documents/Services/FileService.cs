@@ -40,7 +40,7 @@ namespace BusinessLayer.Documents.Services
                 }
 
                 var majorClient = await _clientDataProvider.GetClientById(request.MajorClientId);
-                var minorClient = await _clientDataProvider.GetClientById(request.MinorClientId);
+                var minorClient = await _clientDataProvider.GetClientById(request.MinorsClientIds.FirstOrDefault());
                 var notary = await _userDataProvider.GetNotaryById(request.NotaryId);
 
                 var args = new Dictionary<string, string>()
