@@ -46,7 +46,7 @@ namespace WebApi.Controllers
             return Ok(docId);
         }
 
-        [HttpGet("GetDocumentFile")]
+        [HttpGet("DocumentFile")]
         [ProducesResponseType(500)]
         [ProducesResponseType(503)]
         [ProducesResponseType(200)]
